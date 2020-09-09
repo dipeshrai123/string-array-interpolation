@@ -1,8 +1,8 @@
-const val = 1.5;
+const val = 2;
 const inputRange = [1, 2];
 const outputRange = [
-  [10, 1],
-  [20, 2],
+  "translate(100px, 200.50px) scale(2) #3399ff",
+  "translate(200px, 10.5px) scale(1) blue",
 ];
-
-interpolate(val, inputRange, outputRange);
+const x = interpolate(val, inputRange, outputRange);
+console.log(x);
