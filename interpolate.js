@@ -449,7 +449,6 @@ const interpolate = (value, inputRange, outputRange, extrapolateConfig) => {
         _extrapolateRight
       );
     } else {
-      // If outputRange is in string then is must be color otherwise.
       const [inputMin, inputMax, outputMin, outputMax] = narrowedInput;
 
       const processedOutputMin = _colorProcessedString(outputMin);
