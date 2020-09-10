@@ -1,6 +1,4 @@
-// Named colors
-
-const COLOR_NUMBER_REGEX = /[+-]?\d+(\.\d+)?|#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})/gi;
+const COLOR_NUMBER_REGEX = /[+-]?\d+(\.\d+)?|[\s]?\.\d+|#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})/gi;
 const HEX_NAME_COLOR = /#[a-f\d]{3,}|transparent|aliceblue|antiquewhite|aqua|aquamarine|azure|beige|bisque|black|blanchedalmond|blue|blueviolet|brown|burlywood|burntsienna|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkgrey|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|fuchsia|gainsboro|ghostwhite|gold|goldenrod|gray|green|greenyellow|grey|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|lime|limegreen|linen|magenta|maroon|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|navy|oldlace|olive|olivedrab|orange|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|purple|rebeccapurple|red|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|silver|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|teal|thistle|tomato|turquoise|violet|wheat|white|whitesmoke|yellow|yellowgreen/gi;
 
 const colorNames = {
@@ -380,7 +378,13 @@ const _getArrayInterpolate = (
 };
 
 const _getTemplateString = (str) => {
-  return str.replace(COLOR_NUMBER_REGEX, "$");
+  return str.replace(COLOR_NUMBER_REGEX, function (match) {
+    if (match.indexOf(" ") === 0) {
+      return " $";
+    }
+
+    return "$";
+  });
 };
 
 const _getParsedStringArray = (str) => {
@@ -454,7 +458,7 @@ const interpolate = (value, inputRange, outputRange, extrapolateConfig) => {
       const processedOutputMin = _colorProcessedString(outputMin);
       const processedOutputMax = _colorProcessedString(outputMax);
 
-      let templateString = _getTemplateString(processedOutputMin);
+      let templateString = _getTemplateString(processedOutputMax);
 
       if (_isStringMatched(processedOutputMin, processedOutputMax)) {
         const outputMinParsed = _getParsedStringArray(processedOutputMin);

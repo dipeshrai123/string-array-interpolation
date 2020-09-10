@@ -1,8 +1,9 @@
-const val = 2;
+const val = 1;
 const inputRange = [1, 2];
 const outputRange = [
-  "translate(100px, 200.50px) scale(2) #3399ff",
-  "translate(200px, 10.5px) scale(1) blue",
+  ".2px solid red rgba(0, 0, 0, 0.1)",
+  "10px solid blue rgba(0, 0, 0, 1)",
 ];
+
 const x = interpolate(val, inputRange, outputRange);
 console.log(x);
